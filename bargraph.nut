@@ -35,7 +35,7 @@ function writeExpanderI2C(expanderRegisterAddress, data) {
 function setupExpander() {
   // Set all of port A and port B to outputs
   writeExpanderI2C(EXPANDER_IODIR_ADDRESS, EXPANDER_IODIR_ALL_OUTPUTS)
-    
+
   // Initialize to logic-low on all pins
   writeExpanderI2C(EXPANDER_GPIO_ADDRESS, EXPANDER_GPIO_ALL_LOW)
   expanderPinState = 0x0000
@@ -50,14 +50,14 @@ function writeExpanderPin(pin, value) {
   } else {
       nextState = (((expanderPinState ^ 0xFFFF) | (0x1 << pin)) ^ 0xFFFF)
   }
-  
+
   // Split next state into port A and port B state
   local nextPortAState = nextState & 0xFF
   local nextPortBState = nextState >> 8
-  
+
   // Write both states
   writeExpanderI2C(EXPANDER_GPIO_ADDRESS, nextPortAState.tochar() + nextPortBState.tochar())
-  
+
   // Finally save the new state in the global variable
   expanderPinState = nextState
 }
