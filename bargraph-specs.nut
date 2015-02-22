@@ -3,8 +3,8 @@ dofile("libs/sqjasmine/sqjasmine.nut", true)
 dofile("bargraph.nut", true)
 
 describe("This test", function() {
-  it("fails", function() {
-    expect(1 + 2).toEqual(4)
+  it("succeeds", function() {
+    expect(1 + 2).toEqual(3)
   })
 })
 
