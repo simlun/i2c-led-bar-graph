@@ -1,0 +1,3 @@
+[submodule "libs/sqjasmine"]
+	path = libs/sqjasmine
+	url = git@github.com:simlun/sqjasmine.git
