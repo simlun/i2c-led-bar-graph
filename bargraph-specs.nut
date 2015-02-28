@@ -3,13 +3,6 @@ dofile("libs/sqjasmine/sqjasmine.nut", true)
 dofile("bargraph.nut", true)
 
 
-describe("This test", function() {
-  it("succeeds", function() {
-    expect(1 + 2).toEqual(3)
-  })
-})
-
-
 class FakeIOExpander {
   state = null
 
