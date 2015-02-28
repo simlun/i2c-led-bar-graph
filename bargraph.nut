@@ -16,6 +16,10 @@ class BarGraph {
     for (local pin = 0; pin < integer; pin += 1) {
       expander.enablePin(pin)
     }
+
+    for (local pin = integer; pin < 10; pin += 1) {
+      expander.disablePin(pin)
+    }
   }
 
 }

@@ -17,6 +17,10 @@ class FakeIOExpander {
   function enablePin(pin) {
     state[pin] = true
   }
+
+  function disablePin(pin) {
+    state[pin] = false
+  }
 }
 
 
@@ -92,6 +96,26 @@ describe("The BarGraph control 10 pins of an I/O expander", function() {
       barGraph.display(11)
     })
   })
+
+  it("it can properly display a lower number after a greater number", function() {
+    local expander = FakeIOExpander()
+    local barGraph = BarGraph(expander)
+
+    barGraph.display(7)
+    barGraph.display(5)
+
+    expect(expander.pin(0)).toBe(true)
+    expect(expander.pin(1)).toBe(true)
+    expect(expander.pin(2)).toBe(true)
+    expect(expander.pin(3)).toBe(true)
+    expect(expander.pin(4)).toBe(true)
+    expect(expander.pin(5)).toBe(false)
+    expect(expander.pin(6)).toBe(false)
+    expect(expander.pin(7)).toBe(false)
+    expect(expander.pin(8)).toBe(false)
+    expect(expander.pin(9)).toBe(false)
+  })
+
 })
 
 
