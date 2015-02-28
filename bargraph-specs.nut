@@ -24,8 +24,8 @@ class FakeIOExpander {
 }
 
 
-describe("The BarGraph control 10 pins of an I/O expander", function() {
-  it("it can display a representation of an integer", function() {
+describe("The BarGraph control LEDs connected to 10 pins of an I/O expander", function() {
+  it("can display a representation of the integer 3 by enabling the first 3 LEDs", function() {
     local expander = FakeIOExpander()
     local barGraph = BarGraph(expander)
 
@@ -43,7 +43,7 @@ describe("The BarGraph control 10 pins of an I/O expander", function() {
     expect(expander.pin(9)).toBe(false)
   })
 
-  it("its lower bound is 0", function() {
+  it("has a lower bound of 0", function() {
     local expander = FakeIOExpander()
     local barGraph = BarGraph(expander)
 
@@ -61,7 +61,7 @@ describe("The BarGraph control 10 pins of an I/O expander", function() {
     expect(expander.pin(9)).toBe(false)
   })
 
-  it("its upper bound is 10", function() {
+  it("has an upper bound of 10", function() {
     local expander = FakeIOExpander()
     local barGraph = BarGraph(expander)
 
@@ -97,7 +97,7 @@ describe("The BarGraph control 10 pins of an I/O expander", function() {
     })
   })
 
-  it("it can properly display a lower number after a greater number", function() {
+  it("also disables LEDs when for example displaying a lower integer after a higher integer", function() {
     local expander = FakeIOExpander()
     local barGraph = BarGraph(expander)
 
