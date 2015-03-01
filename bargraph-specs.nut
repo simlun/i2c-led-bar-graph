@@ -1,25 +1,26 @@
 # vi: set ft=JavaScript et sw=2 sts=2 :
 dofile("libs/sqjasmine/sqjasmine.nut", true)
+dofile("ioexpander.nut", true)
 dofile("bargraph.nut", true)
 
 
-class FakeIOExpander {
-  state = null
+class FakeIOExpander extends IOExpander {
+  fakePinState = null
 
   constructor() {
-    state = [false, false, false, false, false, false, false, false, false, false]
+    fakePinState = [false, false, false, false, false, false, false, false, false, false]
   }
 
-  function pin(i) {
-    return state[i]
+  function fakedPin(i) {
+    return fakePinState[i]
   }
 
   function enablePin(pin) {
-    state[pin] = true
+    fakePinState[pin] = true
   }
 
   function disablePin(pin) {
-    state[pin] = false
+    fakePinState[pin] = false
   }
 }
 
@@ -31,16 +32,16 @@ describe("The BarGraph control LEDs connected to 10 pins of an I/O expander", fu
 
     barGraph.display(3)
 
-    expect(expander.pin(0)).toBe(true)
-    expect(expander.pin(1)).toBe(true)
-    expect(expander.pin(2)).toBe(true)
-    expect(expander.pin(3)).toBe(false)
-    expect(expander.pin(4)).toBe(false)
-    expect(expander.pin(5)).toBe(false)
-    expect(expander.pin(6)).toBe(false)
-    expect(expander.pin(7)).toBe(false)
-    expect(expander.pin(8)).toBe(false)
-    expect(expander.pin(9)).toBe(false)
+    expect(expander.fakedPin(0)).toBe(true)
+    expect(expander.fakedPin(1)).toBe(true)
+    expect(expander.fakedPin(2)).toBe(true)
+    expect(expander.fakedPin(3)).toBe(false)
+    expect(expander.fakedPin(4)).toBe(false)
+    expect(expander.fakedPin(5)).toBe(false)
+    expect(expander.fakedPin(6)).toBe(false)
+    expect(expander.fakedPin(7)).toBe(false)
+    expect(expander.fakedPin(8)).toBe(false)
+    expect(expander.fakedPin(9)).toBe(false)
   })
 
   it("has a lower bound of 0", function() {
@@ -49,16 +50,16 @@ describe("The BarGraph control LEDs connected to 10 pins of an I/O expander", fu
 
     barGraph.display(0)
 
-    expect(expander.pin(0)).toBe(false)
-    expect(expander.pin(1)).toBe(false)
-    expect(expander.pin(2)).toBe(false)
-    expect(expander.pin(3)).toBe(false)
-    expect(expander.pin(4)).toBe(false)
-    expect(expander.pin(5)).toBe(false)
-    expect(expander.pin(6)).toBe(false)
-    expect(expander.pin(7)).toBe(false)
-    expect(expander.pin(8)).toBe(false)
-    expect(expander.pin(9)).toBe(false)
+    expect(expander.fakedPin(0)).toBe(false)
+    expect(expander.fakedPin(1)).toBe(false)
+    expect(expander.fakedPin(2)).toBe(false)
+    expect(expander.fakedPin(3)).toBe(false)
+    expect(expander.fakedPin(4)).toBe(false)
+    expect(expander.fakedPin(5)).toBe(false)
+    expect(expander.fakedPin(6)).toBe(false)
+    expect(expander.fakedPin(7)).toBe(false)
+    expect(expander.fakedPin(8)).toBe(false)
+    expect(expander.fakedPin(9)).toBe(false)
   })
 
   it("has an upper bound of 10", function() {
@@ -67,16 +68,16 @@ describe("The BarGraph control LEDs connected to 10 pins of an I/O expander", fu
 
     barGraph.display(10)
 
-    expect(expander.pin(0)).toBe(true)
-    expect(expander.pin(1)).toBe(true)
-    expect(expander.pin(2)).toBe(true)
-    expect(expander.pin(3)).toBe(true)
-    expect(expander.pin(4)).toBe(true)
-    expect(expander.pin(5)).toBe(true)
-    expect(expander.pin(6)).toBe(true)
-    expect(expander.pin(7)).toBe(true)
-    expect(expander.pin(8)).toBe(true)
-    expect(expander.pin(9)).toBe(true)
+    expect(expander.fakedPin(0)).toBe(true)
+    expect(expander.fakedPin(1)).toBe(true)
+    expect(expander.fakedPin(2)).toBe(true)
+    expect(expander.fakedPin(3)).toBe(true)
+    expect(expander.fakedPin(4)).toBe(true)
+    expect(expander.fakedPin(5)).toBe(true)
+    expect(expander.fakedPin(6)).toBe(true)
+    expect(expander.fakedPin(7)).toBe(true)
+    expect(expander.fakedPin(8)).toBe(true)
+    expect(expander.fakedPin(9)).toBe(true)
   })
 
   it("can't display negative integers", function() {
@@ -104,16 +105,16 @@ describe("The BarGraph control LEDs connected to 10 pins of an I/O expander", fu
     barGraph.display(7)
     barGraph.display(5)
 
-    expect(expander.pin(0)).toBe(true)
-    expect(expander.pin(1)).toBe(true)
-    expect(expander.pin(2)).toBe(true)
-    expect(expander.pin(3)).toBe(true)
-    expect(expander.pin(4)).toBe(true)
-    expect(expander.pin(5)).toBe(false)
-    expect(expander.pin(6)).toBe(false)
-    expect(expander.pin(7)).toBe(false)
-    expect(expander.pin(8)).toBe(false)
-    expect(expander.pin(9)).toBe(false)
+    expect(expander.fakedPin(0)).toBe(true)
+    expect(expander.fakedPin(1)).toBe(true)
+    expect(expander.fakedPin(2)).toBe(true)
+    expect(expander.fakedPin(3)).toBe(true)
+    expect(expander.fakedPin(4)).toBe(true)
+    expect(expander.fakedPin(5)).toBe(false)
+    expect(expander.fakedPin(6)).toBe(false)
+    expect(expander.fakedPin(7)).toBe(false)
+    expect(expander.fakedPin(8)).toBe(false)
+    expect(expander.fakedPin(9)).toBe(false)
   })
 
 })
