@@ -25,12 +25,8 @@ class I2CIOExpander extends IOExpander {
     pureIOExpander = _pureIOExpander
   }
 
-  function enablePin(pin) {
-    i2c.write(pureIOExpander.enablePin(pin))
-  }
-
-  function disablePin(pin) {
-    i2c.write(pureIOExpander.disablePin(pin))
+  function setPinStates(newPinStates) {
+    i2c.write(pureIOExpander.setPinStates(newPinStates))
   }
 
 }

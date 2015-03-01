@@ -15,12 +15,8 @@ class FakeIOExpander extends IOExpander {
     return fakePinState[i]
   }
 
-  function enablePin(pin) {
-    fakePinState[pin] = true
-  }
-
-  function disablePin(pin) {
-    fakePinState[pin] = false
+  function setPinStates(newPinStates) {
+    fakePinState = newPinStates
   }
 }
 

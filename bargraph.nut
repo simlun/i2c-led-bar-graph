@@ -13,13 +13,13 @@ class BarGraph {
       throw "ERROR: Can only display integer between 0 and 10 inclusive."
     }
 
+    local newPinStates = [false, false, false, false, false, false, false, false, false, false]
+
     for (local pin = 0; pin < integer; pin += 1) {
-      expander.enablePin(pin)
+      newPinStates[pin] = true
     }
 
-    for (local pin = integer; pin < 10; pin += 1) {
-      expander.disablePin(pin)
-    }
+    expander.setPinStates(newPinStates)
   }
 
 }
