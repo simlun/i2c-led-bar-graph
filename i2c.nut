@@ -2,6 +2,32 @@
 dofile("ioexpander.nut", true)
 
 
+class I2CWriteRequest {
+
+  registerAddress = null
+  data = null
+
+  constructor(_registerAddress, _data) {
+    registerAddress = _registerAddress
+    data = _data
+  }
+
+  function _tostring() {
+    local stringToHex = function(s) {
+      local hex = ""
+      local separator = ""
+      foreach (c in s) {
+        hex += separator + format("0x%02X", c)
+        separator = ","
+      }
+      return hex
+    }
+    return "I2CWriteRequest(registerAddress=[" + stringToHex(registerAddress) +
+           "], data=[" + stringToHex(data) + "])"
+  }
+}
+
+
 class I2C {
   function write(request) {
     throw "ERROR: Not implemented yet"
