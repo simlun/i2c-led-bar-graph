@@ -25,9 +25,31 @@ class MCP23017 extends IOExpander {
                            MCP23017Protocol.IODIR_ALL_OUTPUTS)
   }
 
+  function _byteVectorToNumber(byteVector) {
+    local number = 0
+    local exponent = 7
+    foreach (b in byteVector) {
+      if (b) {
+        number = number + pow(2, exponent)
+      }
+      exponent = exponent - 1
+    }
+    return number
+  }
+
+  function _bitVectorToString(bitVector) {
+    local byte1 = [bitVector[0], bitVector[1], bitVector[2], bitVector[3],
+                   bitVector[4], bitVector[5], bitVector[6], bitVector[7]]
+    local number1 = _byteVectorToNumber(byte1)
+    local byte2 = [bitVector[8], bitVector[9], bitVector[10], bitVector[11],
+                   bitVector[12], bitVector[13], bitVector[14], bitVector[15]]
+    local number2 = _byteVectorToNumber(byte2)
+    return "" + number1.tochar() + number2.tochar()
+  }
+
   function setPinStates(newStates) {
     return I2CWriteRequest(MCP23017Protocol.GPIO_ADDRESS,
-                           MCP23017Protocol.GPIO_ALL_LOW)
+                           _bitVectorToString(newStates))
   }
 
 }
