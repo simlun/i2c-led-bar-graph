@@ -3,7 +3,6 @@ dofile("nuts/ioexpander.nut", true)
 dofile("nuts/i2c.nut", true)
 
 
-// TODO: Represent I2C addresses as a class
 // TODO: I2C_7BIT_ADDRESS = 0x20
 
 

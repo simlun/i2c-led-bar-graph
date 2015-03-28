@@ -32,6 +32,24 @@ class I2CWriteRequest {
 }
 
 
+class I2CAddress {
+
+  sevenBitAddress = null
+
+  constructor(_sevenBitAddress) {
+    sevenBitAddress = _sevenBitAddress
+  }
+
+  function inSevenBitFormat() {
+    return sevenBitAddress
+  }
+
+  function inEightBitFormat() {
+    return sevenBitAddress << 1
+  }
+}
+
+
 class I2C {
   function write(request) {
     throw "ERROR: Not implemented yet"
@@ -40,8 +58,23 @@ class I2C {
 
 
 class ElectricImpI2C extends I2C {
-  // TODO Real I2C implementation that takes I2CWriteRequest
-  // instances and performs real I2C side-effects
+
+  i2c = null
+
+  constructor() {
+    i2c = hardware.i2c12
+    i2c.configure(CLOCK_SPEED_100_KHZ)
+  }
+
+  function write(request) {
+    local result = i2c.write(request.i2cAddress.inEightBitFormat(),
+                             request.registerAddress +
+                             request.data)
+    if (result != 0) {
+      server.log("I2C ERROR:" + i2c.readerror())
+      // TODO: Improve error handling
+    }
+  }
 }
 
 
