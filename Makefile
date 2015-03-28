@@ -1,7 +1,7 @@
 SQ := .SQUIRREL3/bin/sq
 
-NUTS := $(shell ls -1 *.nut | grep -v specs.nut)
-SPECS := $(shell ls -1 *-specs.nut)
+NUTS := $(shell find ./nuts -name '*.nut')
+SPECS := $(shell find ./specs -name '*-specs.nut')
 SPECOUTPUTSDIR := .specoutputs
 SPECOUTPUTS := $(addsuffix .out,$(addprefix $(SPECOUTPUTSDIR)/,$(SPECS)))
 
@@ -27,7 +27,7 @@ $(SPECOUTPUTSDIR)/%-specs.nut.out: $(SQ) $(NUTS) $(SPECS) | $(SPECOUTPUTSDIR)
 	($(SQ) $*-specs.nut | tee $@) && bash -c "grep --quiet 'All tests succeeded' <(tail -n 1 $@)"
 
 $(SPECOUTPUTSDIR):
-	mkdir $(SPECOUTPUTSDIR)
+	mkdir -p $(SPECOUTPUTSDIR)/specs
 
 .PHONY: clean
 clean:

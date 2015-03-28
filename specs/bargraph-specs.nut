@@ -1,7 +1,7 @@
 # vi: set ft=JavaScript et sw=2 sts=2 :
 dofile("libs/sqjasmine/sqjasmine.nut", true)
-dofile("ioexpander.nut", true)
-dofile("bargraph.nut", true)
+dofile("nuts/ioexpander.nut", true)
+dofile("nuts/bargraph.nut", true)
 
 
 class FakeIOExpander extends IOExpander {

@@ -1,6 +1,6 @@
 # vi: set ft=JavaScript et sw=2 sts=2 :
-dofile("ioexpander.nut", true)
-dofile("i2c.nut", true)
+dofile("nuts/ioexpander.nut", true)
+dofile("nuts/i2c.nut", true)
 
 
 // TODO: Represent I2C addresses as a class

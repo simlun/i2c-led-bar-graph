@@ -1,6 +1,6 @@
 # vi: set ft=JavaScript et sw=2 sts=2 :
 dofile("libs/sqjasmine/sqjasmine.nut", true)
-dofile("i2c.nut", true)
+dofile("nuts/i2c.nut", true)
 
 
 class StubIOExpander extends IOExpander {

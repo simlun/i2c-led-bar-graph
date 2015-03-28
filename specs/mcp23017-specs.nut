@@ -1,6 +1,6 @@
 # vi: set ft=JavaScript et sw=2 sts=2 :
 dofile("libs/sqjasmine/sqjasmine.nut", true)
-dofile("mcp23017.nut", true)
+dofile("nuts/mcp23017.nut", true)
 
 describe("The MCP23017 I/O expander", function() {
   it("sets all pins as outputs on initialization", function() {

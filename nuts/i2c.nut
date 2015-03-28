@@ -1,5 +1,5 @@
 # vi: set ft=JavaScript et sw=2 sts=2 :
-dofile("ioexpander.nut", true)
+dofile("nuts/ioexpander.nut", true)
 
 
 class I2CWriteRequest {
