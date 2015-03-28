@@ -20,8 +20,15 @@ class MCP23017Protocol {
 
 class MCP23017 extends IOExpander {
 
+  i2cAddress = null
+
+  constructor(_i2cAddress) {
+    i2cAddress = _i2cAddress
+  }
+
   function initialize() {
-    return I2CWriteRequest(MCP23017Protocol.IODIR_ADDRESS,
+    return I2CWriteRequest(i2cAddress,
+                           MCP23017Protocol.IODIR_ADDRESS,
                            MCP23017Protocol.IODIR_ALL_OUTPUTS)
   }
 
@@ -48,7 +55,8 @@ class MCP23017 extends IOExpander {
   }
 
   function setPinStates(newStates) {
-    return I2CWriteRequest(MCP23017Protocol.GPIO_ADDRESS,
+    return I2CWriteRequest(i2cAddress,
+                           MCP23017Protocol.GPIO_ADDRESS,
                            _bitVectorToString(newStates))
   }
 

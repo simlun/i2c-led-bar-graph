@@ -3,17 +3,26 @@ dofile("libs/sqjasmine/sqjasmine.nut", true)
 dofile("nuts/mcp23017.nut", true)
 
 describe("The MCP23017 I/O expander", function() {
-  it("sets all pins as outputs on initialization", function() {
-    local mcp23017 = MCP23017()
+  it("sets all pins as outputs on initialization by writing two zero bytes to the IODIR register", function() {
+    local mcp23017 = MCP23017(null)
 
-    local actualRequest = mcp23017.initialize()
+    local request = mcp23017.initialize()
 
-    local writeTwoZeroBytesToTheIODIRRegister = I2CWriteRequest("\x00", "\x00\x00")
-    expect(actualRequest.tostring()).toEqual(writeTwoZeroBytesToTheIODIRRegister.tostring())
+    expect(stringToHexString(request.registerAddress)).toEqual(stringToHexString("\x00"))
+    expect(stringToHexString(request.data)).toEqual(stringToHexString("\x00\x00"))
+  })
+
+  it("initialization creates I2CWriteRequests for the given I2C address", function() {
+    local mcp23017 = MCP23017("my I2C address")
+
+    local request = mcp23017.initialize()
+
+    expect(request.i2cAddress).toEqual("my I2C address")
   })
 
   it("has a helper method to convert a 1-byte bit vector to a decimal number", function() {
-    local mcp23017 = MCP23017()
+    local mcp23017 = MCP23017(null)
+
     local ZERO = [false, false, false, false, false, false, false, false]
     local ONE = [false, false, false, false, false, false, false, true]
     local SEVENTEEN = [false, false, false, true, false, false, false, true]
@@ -24,37 +33,54 @@ describe("The MCP23017 I/O expander", function() {
   })
 
   describe("setting pin states", function() {
-    it("can set all pins to logic-low", function() {
-      local mcp23017 = MCP23017()
+    it("creates I2CWriteRequests for the given I2C address", function() {
+      local mcp23017 = MCP23017("my I2C address")
+      local ANY_PIN_STATE = [false, false, false, false, false, false, false, false,
+                             false, false, false, false, false, false, false, false]
+
+      local request = mcp23017.setPinStates(ANY_PIN_STATE)
+
+      expect(request.i2cAddress).toEqual("my I2C address")
+    })
+
+    it("writes to the GPIO register", function() {
+      local mcp23017 = MCP23017(null)
+      local ANY_PIN_STATE = [false, false, false, false, false, false, false, false,
+                             false, false, false, false, false, false, false, false]
+
+      local request = mcp23017.setPinStates(ANY_PIN_STATE)
+
+      expect(stringToHexString(request.registerAddress)).toEqual(stringToHexString("\x12"))
+    })
+
+    it("can set all pins to logic-low by writing two all-zero bytes", function() {
+      local mcp23017 = MCP23017(null)
       local ALL_PINS_DISABLED = [false, false, false, false, false, false, false, false,
                                  false, false, false, false, false, false, false, false]
 
-      local actualRequest = mcp23017.setPinStates(ALL_PINS_DISABLED)
+      local request = mcp23017.setPinStates(ALL_PINS_DISABLED)
 
-      local writeTwoZeroBytesToTheGPIORegisters = I2CWriteRequest("\x12", "\x00\x00")
-      expect(actualRequest.tostring()).toEqual(writeTwoZeroBytesToTheGPIORegisters.tostring())
+      expect(stringToHexString(request.data)).toEqual(stringToHexString("\x00\x00"))
     })
 
     it("can set a single pin", function() {
-      local mcp23017 = MCP23017()
+      local mcp23017 = MCP23017(null)
       local SINGLE_PIN_ENABLED = [false, false, false, false, false, false, false, false,
                                   false, false, false, false, false, false, false, true]
 
-      local actualRequest = mcp23017.setPinStates(SINGLE_PIN_ENABLED)
+      local request = mcp23017.setPinStates(SINGLE_PIN_ENABLED)
 
-      local writeDecimal1ToTheGPIORegisters = I2CWriteRequest("\x12", "\x00\x01")
-      expect(actualRequest.tostring()).toEqual(writeDecimal1ToTheGPIORegisters.tostring())
+      expect(stringToHexString(request.data)).toEqual(stringToHexString("\x00\x01"))
     })
 
     it("can set all pins arbitrarily", function() {
-      local mcp23017 = MCP23017()
+      local mcp23017 = MCP23017(null)
       local ARBITRARY_PIN_STATES = [false, false, false, true, false, false, true, false,
                                     false, true, true, false, false, true, true, true]
 
-      local actualRequest = mcp23017.setPinStates(ARBITRARY_PIN_STATES)
+      local request = mcp23017.setPinStates(ARBITRARY_PIN_STATES)
 
-      local writeDecimal4711ToTheGPIORegisters = I2CWriteRequest("\x12", "\x12\x67")
-      expect(actualRequest.tostring()).toEqual(writeDecimal4711ToTheGPIORegisters.tostring())
+      expect(stringToHexString(request.data)).toEqual(stringToHexString("\x12\x67"))
     })
   })
 })
