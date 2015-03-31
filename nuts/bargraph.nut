@@ -13,9 +13,10 @@ class BarGraph {
       throw "ERROR: Can only display integer between 0 and 10 inclusive."
     }
 
-    local newPinStates = [false, false, false, false, false, false, false, false, false, false]
+    local newPinStates = [false, false, false, false, false, false, false, false,
+                          false, false, false, false, false, false, false, false]
 
-    for (local pin = 0; pin < integer; pin += 1) {
+    for (local pin = 15; pin > 15 - integer; pin -= 1) {
       newPinStates[pin] = true
     }
 

@@ -88,6 +88,10 @@ class I2CIOExpander extends IOExpander {
     pureIOExpander = _pureIOExpander
   }
 
+  function initialize() {
+    i2c.write(pureIOExpander.initialize())
+  }
+
   function setPinStates(newPinStates) {
     i2c.write(pureIOExpander.setPinStates(newPinStates))
   }
