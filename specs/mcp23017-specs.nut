@@ -70,7 +70,7 @@ describe("The MCP23017 I/O expander", function() {
 
       local request = mcp23017.setPinStates(SINGLE_PIN_ENABLED)
 
-      expect(stringToHexString(request.data)).toEqual(stringToHexString("\x00\x01"))
+      expect(stringToHexString(request.data)).toEqual(stringToHexString("\x01\x00"))
     })
 
     it("can set all pins arbitrarily", function() {
@@ -80,7 +80,7 @@ describe("The MCP23017 I/O expander", function() {
 
       local request = mcp23017.setPinStates(ARBITRARY_PIN_STATES)
 
-      expect(stringToHexString(request.data)).toEqual(stringToHexString("\x12\x67"))
+      expect(stringToHexString(request.data)).toEqual(stringToHexString("\x67\x12"))
     })
   })
 })

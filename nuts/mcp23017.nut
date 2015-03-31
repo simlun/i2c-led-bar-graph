@@ -44,13 +44,33 @@ class MCP23017 extends IOExpander {
   }
 
   function _bitVectorToString(bitVector) {
-    local byte1 = [bitVector[0], bitVector[1], bitVector[2], bitVector[3],
-                   bitVector[4], bitVector[5], bitVector[6], bitVector[7]]
-    local number1 = _byteVectorToNumber(byte1)
-    local byte2 = [bitVector[8], bitVector[9], bitVector[10], bitVector[11],
-                   bitVector[12], bitVector[13], bitVector[14], bitVector[15]]
-    local number2 = _byteVectorToNumber(byte2)
-    return "" + number1.tochar() + number2.tochar()
+    local GPB0 = bitVector[0]
+    local GPB1 = bitVector[1]
+    local GPB2 = bitVector[2]
+    local GPB3 = bitVector[3]
+    local GPB4 = bitVector[4]
+    local GPB5 = bitVector[5]
+    local GPB6 = bitVector[6]
+    local GPB7 = bitVector[7]
+
+    local GPA0 = bitVector[8]
+    local GPA1 = bitVector[9]
+    local GPA2 = bitVector[10]
+    local GPA3 = bitVector[11]
+    local GPA4 = bitVector[12]
+    local GPA5 = bitVector[13]
+    local GPA6 = bitVector[14]
+    local GPA7 = bitVector[15]
+
+    local byteGPA = [GPA0, GPA1, GPA2, GPA3,
+                     GPA4, GPA5, GPA6, GPA7]
+    local numberGPA = _byteVectorToNumber(byteGPA)
+
+    local byteGPB = [GPB0, GPB1, GPB2, GPB3,
+                     GPB4, GPB5, GPB6, GPB7]
+    local numberGPB = _byteVectorToNumber(byteGPB)
+
+    return "" + numberGPA.tochar() + numberGPB.tochar()
   }
 
   function setPinStates(newStates) {
