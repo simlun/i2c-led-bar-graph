@@ -36,10 +36,10 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title ""
+Title "I2C LED Bar Graph"
 Date ""
-Rev ""
-Comp ""
+Rev "0.1.0"
+Comp "Simon Lundmark"
 Comment1 ""
 Comment2 ""
 Comment3 ""
