@@ -15,6 +15,10 @@ The [KiCad](http://www.kicad-pcb.org/) source files can be found under `pcb/`. T
 
 ![Schematic](pictures/schematic.png)
 
+* `D0`-`D9` represents the LED bar graph
+* `R0`-`R9` are 3.6 kOhm resistors
+* `VDD` is +5 V
+
 
 Development
 -----------
